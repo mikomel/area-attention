@@ -1,1 +1,2 @@
 from area_attention.area_attention import AreaAttention
+from area_attention.multi_head_area_attention import MultiHeadAreaAttention

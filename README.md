@@ -11,14 +11,12 @@ $ pip install area_attention
 ```
 
 ## Usage
+Single-head Area Attention:
 ```python
 import torch
 
 from area_attention import AreaAttention
 
-q = torch.rand(4, 8, 32)
-k = torch.rand(4, 16, 32)
-v = torch.rand(4, 16, 64)
 area_attention = AreaAttention(
     key_query_size=32,
     area_key_mode='max',
@@ -30,7 +28,42 @@ area_attention = AreaAttention(
     dropout_rate=0.2,
     top_k_areas=0
 )
+q = torch.rand(4, 8, 32)
+k = torch.rand(4, 16, 32)
+v = torch.rand(4, 16, 64)
 x = area_attention(q, k, v)
+x  # torch.Tensor with shape (8, 64)
+```
+
+Multi-head Area Attention:
+```python
+import torch
+
+from area_attention import AreaAttention, MultiHeadAreaAttention
+
+area_attention = AreaAttention(
+    key_query_size=32,
+    area_key_mode='max',
+    area_value_mode='mean',
+    max_area_height=2,
+    max_area_width=2,
+    memory_height=4,
+    memory_width=4,
+    dropout_rate=0.2,
+    top_k_areas=0
+)
+multi_head_area_attention = MultiHeadAreaAttention(
+    area_attention=area_attention,
+    num_heads=2,
+    key_query_size=32,
+    key_query_size_hidden=32,
+    value_size=64,
+    value_size_hidden=64
+)
+q = torch.rand(4, 8, 32)
+k = torch.rand(4, 16, 32)
+v = torch.rand(4, 16, 64)
+x = multi_head_area_attention(q, k, v)
 x  # torch.Tensor with shape (8, 64)
 ```
 
