@@ -32,7 +32,7 @@ q = torch.rand(4, 8, 32)
 k = torch.rand(4, 16, 32)
 v = torch.rand(4, 16, 64)
 x = area_attention(q, k, v)
-x  # torch.Tensor with shape (8, 64)
+x  # torch.Tensor with shape (4, 8, 64)
 ```
 
 Multi-head Area Attention:
@@ -64,7 +64,7 @@ q = torch.rand(4, 8, 32)
 k = torch.rand(4, 16, 32)
 v = torch.rand(4, 16, 64)
 x = multi_head_area_attention(q, k, v)
-x  # torch.Tensor with shape (8, 64)
+x  # torch.Tensor with shape (4, 8, 64)
 ```
 
 ## Unit tests
